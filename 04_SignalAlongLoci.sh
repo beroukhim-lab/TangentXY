@@ -55,4 +55,3 @@ echo -e "\nVisualizing signal of ${SampleOfInterest}...\n"
 
 Rscript --slave ./module/05_SignalAlongLoci.R \
 	-d ${WorkingDir_Absolute}  -r ${PIF_Absolute} -t ${TumorsMatrix_Absolute} -i ${SampleOfInterest} -l ${LatentFactorNum}
-
