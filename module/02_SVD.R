@@ -61,6 +61,7 @@ d.df <- n.autox.svd$d %>%
 
 g <- ggplot(d.df, aes(x=n, y=d)) +
   geom_line() +
+  scale_x_continuous(breaks=scales::pretty_breaks()) +
   labs(title='Importance of latent factors', y='r (Importance)', col='# of normals') +
   theme_bw(base_size=30) +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
@@ -70,6 +71,7 @@ ggsave(g, file=here('output/SVD', 'LatentFactors_Importance.pdf'), width=16, hei
 if (nrow(d.df) > 100) {
   g <- ggplot(d.df %>% head(100), aes(x=n, y=d)) +
     geom_line() +
+    scale_x_continuous(breaks=scales::pretty_breaks()) +
     labs(title='Importance of top 100 latent factors', y='r (Importance)', col='# of normals') +
     ggtitle('Importance of top 100 latent factors') +
     theme_bw(base_size=30) +

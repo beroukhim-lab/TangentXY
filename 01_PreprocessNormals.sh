@@ -4,6 +4,10 @@ DefaultWorkingDir=$(pwd)
 
 usage() {
 	echo "usage: 01_PreprocessNormals.sh -d <WorkingDir> -s <SIF> -n <NormalsMatrix>"
+
+	echo "  WorkingDir: Working directory. 'output' directory is automatically generated under this directory."
+	echo "  SIF: Sample information file."
+	echo "  NormalsMatrix: Normal sample signal matrix file with the values in log2(Relative Copy Number) format."
 }
 
 ##### -------------------- Step 1 (Linear transformation of male chrX signal) -------------------- #####
@@ -36,8 +40,9 @@ else
 fi
 
 if [ -z ${WorkingDir} ]; then
-	echo "Working directory not set. Using "${DefaultWorkingDir}" instead."
 	WorkingDir=${DefaultWorkingDir}
+	WorkingDir_Absolute=$(realpath ${WorkingDir})
+	echo "Working directory not set. Using "${WorkingDir_Absolute}" instead."
 else
 	WorkingDir_Absolute=$(realpath ${WorkingDir})
 	echo "Working directory = "${WorkingDir_Absolute}

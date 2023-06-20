@@ -99,4 +99,4 @@ g <- ggplot(data.soi, aes(x=index, y=signal)) +
   facet_wrap(~ln, nrow=1) +
   labs(y='Signal') +
   theme_bw(base_size=20)
-ggsave(g, file=here('output/SignalAlongLoci', paste0(sample.of.interest, '_signal.pdf')), width=24, height=8)
+ggsave(g, file=here('output/SignalAlongLoci', paste0(sample.of.interest, '_signal.pdf')), width=8 * (length(num.lf) + 1), height=2 * (length(num.lf) + 1))

@@ -43,8 +43,9 @@ else
 fi
 
 if [ -z ${WorkingDir} ]; then
-	echo "Working directory not set. Using "${DefaultWorkingDir}" instead."
 	WorkingDir=${DefaultWorkingDir}
+	WorkingDir_Absolute=$(realpath ${WorkingDir})
+	echo "Working directory not set. Using "${WorkingDir_Absolute}" instead."
 else
 	WorkingDir_Absolute=$(realpath ${WorkingDir})
 	echo "Working directory = "${WorkingDir_Absolute}
