@@ -35,9 +35,9 @@ Run this tool first to preprocess normal sample signals.
 ## Change directory to the downloaded and decompressed directory
 cd ~/Downloads/TangentXY-main
 ./01_PreprocessNormals.sh \
-  -d ./ # Directory to store the outputs \  (Optional. Default: current directory)
-  -s ./sampledata/sample_information.txt \  (Mandatory. Sample information file)
-  -n ./sampledata/normal_log2RCN.txt \      (Mandatory. Normal sample signal matrix)
+  -d ./ # Directory to store the outputs \  # Optional. Default: current directory
+  -s ./sampledata/sample_information.txt \  # Mandatory. Sample information file
+  -n ./sampledata/normal_log2RCN.txt \      # Mandatory. Normal sample signal matrix
 ```
 
 #### 2. TangentXY with a reconstructed normal subspace with a desired number of latent factors
@@ -46,34 +46,34 @@ A plot generated in the preprocessing might help you select a good number for la
 ((working directory)/output/SVD/LatentFactors_Importance.pdf)
 ```
 ./02_TangentXY.sh \
-  -d ./ # Directory to store the outputs \  (Optional. Default: current directory)
-  -s ./sampledata/sample_information.txt \  (Mandatory. Sample information file)
-  -n ./sampledata/normal_log2RCN.txt \      (Mandatory. Normal sample signal matrix)
-  -p ./output/SVD/n.autox.svd.RData \       (Mandatory. Output of 01_PreProcessNormals.sh)
-  -t ./sampledata/tumor_log2RCN.txt \       (Mandatory. Tumor sample signals to be normalizaed)
-  -l 5                                      (Mandatory. The number of latent factors used to reconstruct a normal subspace)
+  -d ./ # Directory to store the outputs \  # Optional. Default: current directory
+  -s ./sampledata/sample_information.txt \  # Mandatory. Sample information file
+  -n ./sampledata/normal_log2RCN.txt \      # Mandatory. Normal sample signal matrix
+  -p ./output/SVD/n.autox.svd.RData \       # Mandatory. Output of 01_PreProcessNormals.sh
+  -t ./sampledata/tumor_log2RCN.txt \       # Mandatory. Tumor sample signals to be normalizaed
+  -l 5                                      # Mandatory. The number of latent factors used to reconstruct a normal subspace
 ```
 
 #### 3. (Optional) Check the normalization performance by looking at signal level, noise level, and signal-to-noise ratio
 You may want to run TangentXY with several different number of latent factors and decide the best number based on the normalization performance. Use this tool for the comparison.
 ```
 ./03_SignalNoise.sh \
-  -d ./ # Directory to store the outputs \  (Optional. Default: current directory)
-  -s ./sampledata/sample_information.txt \  (Mandatory. Sample information file)
-  -r ./sampledata/probe_annotation.txt \    (Mandatory. Probe information file)
-  -t ./sampledata/tumor_log2RCN.txt \       (Mandatory. Tumor sample signals to be normalizaed)
-  -l 1,5,10                                 (Mandatory. The number of latent factors used to reconstruct a normal subspace)
+  -d ./ # Directory to store the outputs \  # Optional. Default: current directory
+  -s ./sampledata/sample_information.txt \  # Mandatory. Sample information file
+  -r ./sampledata/probe_annotation.txt \    # Mandatory. Probe information file
+  -t ./sampledata/tumor_log2RCN.txt \       # Mandatory. Tumor sample signals to be normalizaed
+  -l 1,5,10                                 # Mandatory. The number of latent factors used to reconstruct a normal subspace
 ```
 
 #### 4. (Optional) Visualize the signal intensity of sample of interest along genomic position
 You may also want to visually check the signal intensity of pre-/post-TangentXY data. This script generates a visualization of signal in a sample of your choice.
 ```
 ./04_SignalAlongLoci.sh
-  -d ./ # Directory to store the outputs \  (Optional. Default: current directory)
-  -r ./sampledata/probe_annotation.txt \    (Mandatory. Probe information file)
-  -t ./sampledata/tumor_log2RCN.txt \       (Mandatory. Tumor sample signals to be normalizaed)
-  -i tumor.female1 \                        (Mandatory. The name of sample you want to visualize)
-  -l 1,5,10                                 (Mandatory. The number of latent factors used to reconstruct a normal subspace)
+  -d ./ # Directory to store the outputs \  # Optional. Default: current directory
+  -r ./sampledata/probe_annotation.txt \    # Mandatory. Probe information file
+  -t ./sampledata/tumor_log2RCN.txt \       # Mandatory. Tumor sample signals to be normalizaed
+  -i tumor.female1 \                        # Mandatory. The name of sample you want to visualize
+  -l 1,5,10                                 # Mandatory. The number of latent factors used to reconstruct a normal subspace
 ```
 
 ### 3. Output
