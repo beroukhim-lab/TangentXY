@@ -63,7 +63,7 @@ n.autox.svd <- svd(n.autox)
 colnames(n.autox.svd$u) <- colnames(n.autox)
 rownames(n.autox.svd$u) <- rownames(n.autox)
 rownames(n.autox.svd$v) <- colnames(n.autox)
-saveRDS(n.autox.svd, file=here('output/SVD', 'n.autox.svd.RData'), compress=FALSE)
+saveRDS(n.autox.svd, file=here('output/SVD', 'n.autox.svd.rds'), compress=FALSE)
 
 d.df <- n.autox.svd$d %>%
   as.data.frame() %>%

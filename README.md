@@ -49,7 +49,7 @@ A plot generated in the preprocessing might help you select a good number for la
   -d ./ # Directory to store the outputs \  # Optional. Default: current directory
   -s ./sampledata/sample_information.txt \  # Mandatory. Sample information file
   -n ./sampledata/normal_log2RCN.txt \      # Mandatory. Normal sample signal matrix
-  -p ./output/SVD/n.autox.svd.RData \       # Mandatory. Output of 01_PreProcessNormals.sh
+  -p ./output/SVD/n.autox.svd.rds \         # Mandatory. Output of 01_PreProcessNormals.sh
   -t ./sampledata/tumor_log2RCN.txt \       # Mandatory. Tumor sample signals to be normalizaed
   -l 5                                      # Mandatory. The number of latent factors used to reconstruct a normal subspace
 ```
@@ -89,7 +89,7 @@ You may also want to visually check the signal intensity of pre-/post-TangentXY 
     ├── SignalAlongLoci
     │   └── tumor.female1_signal.pdf
     ├── SignalNoise
-    │   ├── SignalNoise.png
+    │   ├── SignalNoise.pdf
     │   └── SignalNoise.txt
     └── TangentXY
         ├── TangentXYnormalized_tumor_log2RCN_10latentFactors.txt

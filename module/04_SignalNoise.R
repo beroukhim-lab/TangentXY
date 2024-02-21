@@ -150,7 +150,6 @@ for (i in 1:length(num.lf)) {
   }
 }
 write.table(signal.noise.df, file=here('output/SignalNoise', 'SignalNoise.txt'), sep='\t', row.names=FALSE, quote=FALSE)
-# signal.noise.df <- read.delim(file=here('output/SignalNoise', 'SignalNoise.txt'))
 
 
 signal.noise.df.l <- signal.noise.df %>%
@@ -180,4 +179,4 @@ g <- ggplot(signal.noise.df.l, aes(x=lf, y=value)) +
   theme_bw(base_size=30) +
   theme(axis.text.x=element_text(angle=45, vjust =1, hjust=1)) +
   theme(axis.title.x=element_blank())
-ggsave(g, file=here('output/SignalNoise', 'SignalNoise.png'), dpi=100, width=24, height=20)
+ggsave(g, file=here('output/SignalNoise', 'SignalNoise.pdf'), width=24, height=20)
