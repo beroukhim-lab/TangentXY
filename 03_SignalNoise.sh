@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# ------------------------------------------------------------------------------
+# Author: Kei Enomoto
+# Contact: Rameen Beroukhim, rameen_beroukhim@dfci.harvard.edu
+# Description: Code to visualize and evaluate noise reduction performance of
+#              TangentXY.
+# License: GNU GPL2, Copyright (C) 2023 Dana-Farber Cancer Institute
+# ------------------------------------------------------------------------------
+
 DefaultWorkingDir=$(pwd)
 
 usage() {
