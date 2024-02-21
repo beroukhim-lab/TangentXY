@@ -1,3 +1,13 @@
+# ------------------------------------------------------------------------------
+# Author: Kei Enomoto
+# Contact: Rameen Beroukhim, rameen_beroukhim@dfci.harvard.edu
+# Description: Part of the TangentXY tool for normalizing and converting read 
+#              depths from WES/SNP array data to log2 relative copy values.
+#              Code to perform Tangent on autosomes and chrX using transformed
+#              reference plane and on chrY using sex-matched reference plane.
+# License: GNU GPL2, Copyright (C) 2023 Dana-Farber Cancer Institute
+# ------------------------------------------------------------------------------
+
 if (!requireNamespace('optparse', quietly=TRUE)) {
   print('Package "optparse" not installed. Installing...')
   install.packages('optparse')

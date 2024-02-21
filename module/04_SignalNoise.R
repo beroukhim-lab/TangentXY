@@ -1,3 +1,11 @@
+# ------------------------------------------------------------------------------
+# Author: Kei Enomoto
+# Contact: Rameen Beroukhim, rameen_beroukhim@dfci.harvard.edu
+# Description: Code to visualize and evaluate noise reduction performance of
+#              TangentXY.
+# License: GNU GPL2, Copyright (C) 2023 Dana-Farber Cancer Institute
+# ------------------------------------------------------------------------------
+
 if (!requireNamespace('optparse', quietly=TRUE)) {
   print('Package "optparse" not installed. Installing...')
   install.packages('optparse')

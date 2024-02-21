@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# ------------------------------------------------------------------------------
+# Author: Kei Enomoto
+# Contact: Rameen Beroukhim, rameen_beroukhim@dfci.harvard.edu
+# Description: Code to perform TangentXY on tumor samples.
+# License: GNU GPL2, Copyright (C) 2023 Dana-Farber Cancer Institute
+# ------------------------------------------------------------------------------
+
 DefaultWorkingDir=$(pwd)
 
 usage() {
