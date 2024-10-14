@@ -6,12 +6,7 @@
 # License: GNU GPL2, Copyright (C) 2023 Dana-Farber Cancer Institute
 # ------------------------------------------------------------------------------
 
-if (!requireNamespace('optparse', quietly=TRUE)) {
-  print('Package "optparse" not installed. Installing...')
-  install.packages('optparse')
-}
 library('optparse')
-
 
 option_list = list(
   make_option(c("-d", "--directory"), type="character", help="working directory", metavar='character'),
@@ -24,23 +19,12 @@ option_list = list(
 opt_parser = OptionParser(option_list=option_list)
 opt = parse_args(opt_parser)
 
-# print(opt)
-
-
-if (!requireNamespace('tidyverse', quietly=TRUE)) {
-  print('Package "tidyverse" not installed. Installing...')
-  install.packages('tidyverse')
-}
-suppressPackageStartupMessages(library('tidyverse'))
-library('tidyverse')
-
 dir <- opt$directory
 setwd(dir)
 
-if (!requireNamespace('here', quietly=TRUE)) {
-  print('Package "here" not installed. Installing...')
-  install.packages('here')
-}
+suppressPackageStartupMessages(library('tidyverse'))
+library('tidyverse')
+
 suppressPackageStartupMessages(library('here'))
 library('here')
 
