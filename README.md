@@ -24,13 +24,19 @@ Note that in order to obtain good normalization results, normal and tumor sample
 - Remove loci corresponding to common germline CNvs  
 The scripts for the quality-control are not provided in this repository, however, Tangent paper describes some of those steps.  
 Gao, G. F. et al. Tangent normalization for somatic copy-number inference in cancer genome analysis. Bioinformatics (2022) doi:10.1093/bioinformatics/btac586.
-  
 
 
-### 2. Run:
+### 3. Run:
 Follow the steps below.
+#### 0. Install required R packages prior to running TangentXY
+Run this tool first to make sure all required R packages are installed. This tool installes missing packages if any.
+```
+## No need to set any options. Just run the shell script below.
+./00_InstallRPackages.sh
+```
+
 #### 1. Preprocessing of normal sample signals: Linear transformation of male chrX signal and SVD on autosomes and chrX
-Run this tool first to preprocess normal sample signals.
+Run this tool to preprocess normal sample signals.
 ```
 ## Change directory to the downloaded and decompressed directory
 cd ~/Downloads/TangentXY-main
@@ -76,7 +82,7 @@ You may also want to visually check the signal intensity of pre-/post-TangentXY 
   -l 1,5,10                                 # Mandatory. The number of latent factors used to reconstruct a normal subspace
 ```
 
-### 3. Output
+### 4. Output
 ```
 (Working directory)
 └── output
