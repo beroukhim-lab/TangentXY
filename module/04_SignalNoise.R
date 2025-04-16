@@ -42,8 +42,8 @@ num.lf <- opt$latent.n %>%
   as.numeric() %>%
   sort()
 
-sif <- read_delim(sif.file, progress=FALSE, show_col_types=FALSE)
-pif <- read_delim(pif.file, progress=FALSE, show_col_types=FALSE)
+sif <- read.delim(sif.file)
+pif <- read.delim(pif.file)
 t.df <- read_delim(t.df.file, progress=FALSE, show_col_types=FALSE) %>%
   column_to_rownames('locus')
 
@@ -103,6 +103,7 @@ options(dplyr.summarise.inform = FALSE)
 cat('Calculating signal and noise in pre-normalization data...\n')
 
 t0.signal.noise.list <- parallel::mclapply(t.df, calc.signal.noise, mc.cores=parallel::detectCores()-2)
+# t0.signal.noise.list <- lapply(t.df, calc.signal.noise)
 t0.signal.noise.df <- t0.signal.noise.list %>%
   bind_rows() %>%
   mutate(sample.id=names(t0.signal.noise.list)) %>%

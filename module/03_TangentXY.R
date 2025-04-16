@@ -13,9 +13,9 @@ library('optparse')
 option_list = list(
   make_option(c("-d", "--directory"), type="character", help="working directory", metavar='character'),
   make_option(c("-s", "--sif"), type="character", help="sample information file", metavar="character"),
-  make_option(c("-n", "--n.matrix"), type="character", help="normal samples signal matrix file", metavar="character"),
-  make_option(c("-p", "--nt.matrix"), type="character", help="normal samples transformed signal matrix file", metavar="character"),
-  make_option(c("-t", "--t.matrix"), type="character", help="tumor samples signal matrix file", metavar="character"),
+  make_option(c("-n", "--nt.matrix"), type="character", help="normal samples transformed signal matrix file", metavar="character"),
+  make_option(c("-p", "--nsvd"), type="character", help="SVD processed normal samples signal file", metavar="character"),
+  make_option(c("-t", "--tt.matrix"), type="character", help="tumor samples transformed signal matrix file", metavar="character"),
   make_option(c("-l", "--latent.n"), type="integer", help="number of latent factors to reconstruct normal subspace", metavar="integer")
 )
 
@@ -37,12 +37,12 @@ if (!file.exists(here('output/TangentXY'))) {
 
 
 sif.file <- opt$sif
-n.df.file <- opt$n.matrix
-n.autox.svd <- opt$nt.matrix
-t.df.file <- opt$t.matrix
+n.df.file <- opt$nt.matrix
+n.autox.svd <- opt$nsvd
+t.df.file <- opt$tt.matrix
 num.lf <- opt$latent.n
 
-sif <- read_delim(sif.file, progress=FALSE, show_col_types=FALSE)
+sif <- read.delim(sif.file)
 t.df <- read_delim(t.df.file, progress=FALSE, show_col_types=FALSE) %>%
   column_to_rownames('locus')
 n.autox.svd <- readRDS(n.autox.svd)
@@ -79,6 +79,13 @@ T.autox.norm.medians <- T.autox.norm[!grepl('X', rownames(T.autox.norm)),] %>%
 
 T.autox.norm.rescaled <- t(t(T.autox.norm)- T.autox.norm.medians)
 
+## Adjust male chrX so that it is relative to CN=2
+male.tumor.samples <- sif %>%
+  filter(gender=='male' & type=='tumor') %>%
+  pull(sample.id)
+
+T.autox.norm.rescaled[grepl('X', rownames(T.autox.norm.rescaled)), male.tumor.samples] <- T.autox.norm.rescaled[grepl('X', rownames(T.autox.norm.rescaled)), male.tumor.samples] - 1
+
 cat('Done.\n')
 
 
@@ -89,18 +96,14 @@ cat('\nRunning Tangent on male chrY ...\n')
 n.df <- read_delim(n.df.file, progress=FALSE, show_col_types=FALSE) %>%
   column_to_rownames('locus')
 
-male.normals <- sif %>%
+male.normal.samples <- sif %>%
   filter(sample.id %in% colnames(n.df) & gender=='male') %>%
   pull(sample.id)
 
-male.tumors <- sif %>%
-  filter(sample.id %in% colnames(t.df) & gender=='male') %>%
-  pull(sample.id)
-
-N.m <- n.df[, male.normals] %>%
+N.m <- n.df[, male.normal.samples] %>%
   as.matrix()
 
-T.m <- t.df[, male.tumors] %>%
+T.m <- t.df[, male.tumor.samples] %>%
   as.matrix()
 
 ## Get the origin in the normal subspace
@@ -140,5 +143,3 @@ T.norm <- T.norm %>%
 write.table(T.norm, file=here('output/TangentXY', paste0('TangentXYnormalized_tumor_log2RCN_', num.lf, 'latentFactors.txt')), sep='\t', row.names=FALSE, quote=FALSE)
 
 cat('Done.\n')
-
-

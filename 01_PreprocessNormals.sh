@@ -11,19 +11,21 @@
 DefaultWorkingDir=$(pwd)
 
 usage() {
-	echo "usage: 01_PreprocessNormals.sh -d <WorkingDir> -s <SIF> -n <NormalsMatrix>"
+	echo "usage: 01_PreprocessNormals.sh -d <WorkingDir> -s <SIF> -n <NormalsMatrix> -t <TumorsMatrix>"
 
 	echo "  WorkingDir: Working directory. 'output' directory is automatically generated under this directory."
 	echo "  SIF: Sample information file."
 	echo "  NormalsMatrix: Normal sample signal matrix file with the values in log2(Relative Copy Number) format."
+	echo "  TumorsMatrix: Tumor sample signal matrix file with the values in log2(Relative Copy Number) format."
 }
 
 ##### -------------------- Step 1 (Linear transformation of male chrX signal) -------------------- #####
-while getopts :d:s:n: option; do
+while getopts :d:s:n:t: option; do
 	case "${option}" in
 		d) WorkingDir=${OPTARG};;
 		s) SIF=${OPTARG};;
 		n) NormalsMatrix=${OPTARG};;
+		t) TumorsMatrix=${OPTARG};;
 		\?)
 				echo "Unknown options:"
 				usage
@@ -38,13 +40,14 @@ while getopts :d:s:n: option; do
 	esac
 done
 
-if [ -z ${SIF} ] || [ -z ${NormalsMatrix} ]; then
-	echo "Key arguments (Sample information file, ) not present."
+if [ -z ${SIF} ] || [ -z ${NormalsMatrix} ] || [ -z ${TumorsMatrix} ]; then
+	echo "Key arguments (Sample information file, Normal samples matrix, Tumor samples matrix) not present."
 	echo "Exiting..."
 	exit 1
 else
 	SIF_Absolute=$(realpath ${SIF})
 	NormalsMatrix_Absolute=$(realpath ${NormalsMatrix})
+	TumorsMatrix_Absolute=$(realpath ${TumorsMatrix})
 fi
 
 if [ -z ${WorkingDir} ]; then
@@ -60,7 +63,7 @@ fi
 echo -e "\nRunning linear transformation...\n"
 
 Rscript --slave ./module/01_LinearTransformation.R \
-	-d ${WorkingDir_Absolute} -s ${SIF_Absolute} -n ${NormalsMatrix_Absolute}
+	-d ${WorkingDir_Absolute} -s ${SIF_Absolute} -n ${NormalsMatrix_Absolute} -t ${TumorsMatrix_Absolute}
 
 
 ##### -------------------- Step 2 (SVD on autosomes & chrX) -------------------- #####

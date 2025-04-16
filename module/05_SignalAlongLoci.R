@@ -44,7 +44,7 @@ num.lf <- opt$latent.n %>%
   as.numeric() %>%
   sort()
 
-pif <- read_delim(pif.file, progress=FALSE, show_col_types=FALSE)
+pif <- read.delim(pif.file)
 t.df <- read_delim(t.df.file, progress=FALSE, show_col_types=FALSE) %>%
   column_to_rownames('locus')
 

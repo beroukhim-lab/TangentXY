@@ -36,7 +36,7 @@ if (!file.exists(here('output/SVD'))) {
 sif.file <- opt$sif
 n.lt.df.file <- here('output/LinearTransformation', 'normal_log2RCN_linearTrans.txt')
 
-sif <- read_delim(sif.file, progress=FALSE, show_col_types=FALSE)
+sif <- read.delim(sif.file)
 n.lt.df <- read_delim(n.lt.df.file, progress=FALSE, show_col_types=FALSE) %>%
   column_to_rownames('locus')
 

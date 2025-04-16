@@ -35,7 +35,7 @@ Run this tool first to make sure all required R packages are installed. This too
 ./00_InstallRPackages.sh
 ```
 
-#### 1. Preprocessing of normal sample signals: Linear transformation of male chrX signal and SVD on autosomes and chrX
+#### 1. Preprocessing of normal and tumor sample signals: Linear transformation of male chrX signal and SVD on autosomes and chrX
 Run this tool to preprocess normal sample signals.
 ```
 ## Change directory to the downloaded and decompressed directory
@@ -44,6 +44,7 @@ cd ~/Downloads/TangentXY-main
   -d ./ # Directory to store the outputs \  # Optional. Default: current directory
   -s ./sampledata/sample_information.txt \  # Mandatory. Sample information file
   -n ./sampledata/normal_log2RCN.txt \      # Mandatory. Normal sample signal matrix
+  -t ./sampledata/tumor_log2RCN.txt         # Mandatory. Tumor sample signal matrix
 ```
 
 #### 2. TangentXY with a reconstructed normal subspace with a desired number of latent factors
@@ -54,9 +55,9 @@ A plot generated in the preprocessing might help you select a good number for la
 ./02_TangentXY.sh \
   -d ./ # Directory to store the outputs \  # Optional. Default: current directory
   -s ./sampledata/sample_information.txt \  # Mandatory. Sample information file
-  -n ./sampledata/normal_log2RCN.txt \      # Mandatory. Normal sample signal matrix
-  -p ./output/SVD/n.autox.svd.rds \         # Mandatory. Output of 01_PreProcessNormals.sh
-  -t ./sampledata/tumor_log2RCN.txt \       # Mandatory. Tumor sample signals to be normalizaed
+  -n ./output/LinearTransformation/normal_log2RCN_linearTrans.txt \      # Mandatory. Normal sample signal matrix (Output of 01_PreProcessNormals.sh)
+  -p ./output/SVD/n.autox.svd.rds \         # Mandatory. SVD processed normal sample signals (Output of 01_PreProcessNormals.sh)
+  -t ./output/LinearTransformation/tumor_log2RCN_linearTrans.txt \       # Mandatory. Tumor sample signals to be normalizaed ((Output of 01_PreProcessNormals.sh))
   -l 5                                      # Mandatory. The number of latent factors used to reconstruct a normal subspace
 ```
 
@@ -74,7 +75,7 @@ You may want to run TangentXY with several different number of latent factors an
 #### 4. (Optional) Visualize the signal intensity of sample of interest along genomic position
 You may also want to visually check the signal intensity of pre-/post-TangentXY data. This script generates a visualization of signal in a sample of your choice.
 ```
-./04_SignalAlongLoci.sh
+./04_SignalAlongLoci.sh \
   -d ./ # Directory to store the outputs \  # Optional. Default: current directory
   -r ./sampledata/probe_annotation.txt \    # Mandatory. Probe information file
   -t ./sampledata/tumor_log2RCN.txt \       # Mandatory. Tumor sample signals to be normalizaed
@@ -87,7 +88,9 @@ You may also want to visually check the signal intensity of pre-/post-TangentXY 
 (Working directory)
 └── output
     ├── LinearTransformation
-    │   ├── NormalSamples_ChrX_ZscoreDistribution.pdf
+    │   ├── ChrX_SignalDistribution.pdf
+    │   ├── ChrY_SignalDistribution.pdf    
+    │   ├── tumor_log2RCN_linearTrans.txt    
     │   └── normal_log2RCN_linearTrans.txt
     ├── SVD
     │   ├── LatentFactors_Importance.pdf
